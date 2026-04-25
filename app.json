@@ -19,9 +19,11 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "permissions": [
+        "android.permission.CALL_PHONE",
         "android.permission.CALL_PHONE"
       ],
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.isaac080.KoruApp"
     },
     "web": {
       "output": "static",
