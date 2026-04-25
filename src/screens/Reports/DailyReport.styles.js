@@ -118,7 +118,7 @@ export const styles = StyleSheet.create({
     elevation: 4,
   },
   sendButtonText: {
-    color: '#FFFFFF',
+    
     fontSize: 18,
     fontWeight: 'bold',
     letterSpacing: 1.5,

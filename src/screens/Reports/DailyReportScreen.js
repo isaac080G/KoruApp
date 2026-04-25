@@ -8,9 +8,67 @@ import {styles} from "./DailyReport.styles"
 import { Slider } from '@rneui/themed'
 import CircularProgress from 'react-native-circular-progress-indicator';
 
+import  Toast  from "react-native-toast-message"
+import {useFormik} from "formik"
+import {initialValues,validationSchema} from "./DailyReport.Data"
+import {auth,db} from "../../utils/Firebase"
+import { addDoc, collection} from 'firebase/firestore'
+import { useNavigation } from '@react-navigation/native'
+import { screen } from '../././../utils/Screenname'
+
 
 export function DailyReportScreen({route}) {
     const {selectedMood}=route.params 
+    const navigation= useNavigation()
+
+
+
+    // aqui esta el formik
+
+
+    const formik = useFormik({
+      initialValues:initialValues(),
+      validationSchema:validationSchema(),
+      onSubmit: async (formValue) => {
+        console.log(formValue)
+        try{
+          const DocID = auth.currentUser.uid
+          const reportRef = collection(db,"usuarios",DocID,"DailyReports")
+
+          await addDoc(reportRef,{
+            createdAt: new Date(),
+            userID:DocID,
+            anxietyLevel:anxietyLevel,
+            worryLevel:worryLevel,
+            restlessnessLevel:restlessnessLevel,
+            muscleTension:muscleTension,
+            sleepReport:{
+              hours:formValue.horas,
+              min: formValue.min
+            },
+            socialContext:socialContext,
+            notes:notes
+          })
+          Toast.show({
+            text:"Dia Capturado con exito :)",
+            position:"top",
+            duration:4000
+          })
+          //navigation.navigate{screen.}
+         
+        }catch(error){
+          Toast.show({
+            text:"el Documento no ha podido crearse con exito",
+            position:"top",
+            duration:4000
+            
+          })
+
+        }
+        
+      }
+
+    })
 
 
     //Data
@@ -24,12 +82,15 @@ export function DailyReportScreen({route}) {
     const [restlessnessLevel, setrestlessnessLevel] = useState(null)
 
     const [muscleTension, setmuscleTension] = useState(null)
+    const [socialContext, setsocialContext] = useState(null)
 
 
 
 
     //Data
 
+
+    //aux
   
   const moodConfig = {
     0: { emoji: '😢', label: 'muy mal' },
@@ -52,7 +113,7 @@ export function DailyReportScreen({route}) {
   8:  { emoji: '😫', color: '#DC2626' },
   9: { emoji: '😱', color: '#991B1B' },
 };
-  
+  const options=["solo","en publico" ]
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -143,24 +204,73 @@ export function DailyReportScreen({route}) {
                 onPress={(value)=>{setmuscleTension(value)}}
                 selectedIndex={muscleTension}
                 buttons={['1', '2', '3', '4']}
-                sele
+                
             ></ButtonGroup>
         </View>
         <Text style={styles.helperText}>1(nunca)  2(A menudo)  3(Frecuente)  4(simpre)</Text>
 
         {/* aqui capturamos la calidad del sueño */}
         <Text style={styles.label}>Calidad del sueño</Text>
+        <View style={{flexDirection:"row"}}>
+            <Input
+              placeholder='Horas de sueño'
+              containerStyle={{flex:1}}
+              keyboardType='numeric'
+              rightIcon={
+                <Icon
+                type='material-community'
+                name="clock"
+                >
+
+                </Icon>
+              }
+              
+              onChangeText={(text) => formik.setFieldValue("horas", text)}
+              errorMessage={formik.errors.horas}
+              >
+            </Input>
+            <Input
+              placeholder='minutos'
+              containerStyle={{flex:1}}
+              keyboardType='numeric'
+              rightIcon={
+                <Icon
+                type='material-community'
+                name="clock"
+                >
+                </Icon>
+              }
+              onChangeText={(text) => formik.setFieldValue("min", text)}
+              errorMessage={formik.errors.min}
+              >
+            </Input>
+        </View>
+
+        <View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+            <Text style={{flex:1}}>¿Cómo fue tu entorno social?</Text>
+            <ButtonGroup  selectedButtonStyle={styles.selectedButton} containerStyle={styles.buttonGroupContainer} buttonStyle={styles.individualButton} textStyle={{fontSize:20,fontWeight: 'bold'}}
+                onPress={(index) => {formik.setFieldValue("socialContext", options[index]);setsocialContext(index)}}
+                buttons={["Solo","En Publico"]}
+                selectedIndex={socialContext}
+            ></ButtonGroup>
+        </View>
+          
+          
+        </View>
+        
 
 
 
 
         {/* Notas Adicionales */}
         <Text style={[styles.label, { marginTop: 30 }]}>Notas adicionales (Opcional)</Text>
+        
         <Input
           style={styles.textArea}
-          placeholder="Escribe aquí cómo te has sentido, síntomas físicos o pensamientos..."
-          multiline
-          numberOfLines={5}
+          placeholder="Si tuvieras que señalar un evento o pensamiento que inició esto, ¿cuál sería?"
+          
+          numberOfLines={2}
           value={notes}
           onChangeText={setNotes}
           placeholderTextColor="#A0AEC0"
@@ -170,7 +280,14 @@ export function DailyReportScreen({route}) {
         <Button 
           style={styles.sendButton}
           activeOpacity={0.8}
-          onPress={() => console.log("Guardando en Firebase...", { mood: selectedMood, level: anxietyLevel, notes })}
+          onPress={()=>{
+            formik.handleSubmit(),
+            console.log("Errores de Formik:", formik.errors);
+          }
+            
+          }
+          loading={formik.isSubmitting}
+          
         >
           <Text style={styles.sendButtonText}>ENVIAR REPORTE</Text>
         </Button>
