@@ -19,15 +19,10 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "permissions": [
-        "android.permission.CALL_PHONE",
         "android.permission.CALL_PHONE"
       ],
-      "predictiveBackGestureEnabled": false,
-      "package": "com.isaac080.KoruApp"
-    },
-    "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "package": "com.koru.app",
+      "googleServicesFile": "./google-services.json"
     },
     "plugins": [
       [
@@ -36,13 +31,21 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
+          "backgroundColor": "#ffffff"
         }
       ],
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      "@react-native-firebase/app",
+      [
+        "@react-native-firebase/app-check",
+        {
+          "androidProvider": "playIntegrity"
+        }
+      ],
+      "expo-font",
+      "expo-image",
+      "expo-router",
+      "expo-web-browser"
     ],
     "extra": {
       "eas": {

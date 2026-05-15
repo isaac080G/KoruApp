@@ -1,43 +1,31 @@
-import { TouchableOpacity, Text, View } from 'react-native';
-import React from 'react'
+import { Text, View } from "react-native";
 
-import {styles} from "./HomeScreen.styles"
-import { Icon } from '@rneui/themed'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useNavigation } from '@react-navigation/native';
-import { screen } from '../../utils';
-import {Header} from "../../components/Home/Header"
-import {MoodSelector} from "../../components/Home"
+import { useNavigation } from "@react-navigation/native";
+import { Icon } from "@rneui/themed";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { AiGeminiHome } from "../../components/AI";
+import { MoodSelector } from "../../components/Home";
+import { Header } from "../../components/Home/Header";
+import { screen } from "../../utils";
+import { styles } from "./HomeScreen.styles";
 
 export function HomeScreen() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const gotoAlert = () => {
-  navigation.navigate(screen.Alert.tab, {
-    screen: screen.Alert.Alert
-  });
-};
+    navigation.navigate(screen.Alert.tab, {
+      screen: screen.Alert.Alert,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      
       <Header></Header>
 
-      <MoodSelector></MoodSelector> 
+      <MoodSelector></MoodSelector>
 
-      <View style={styles.recommendationCard}>
-        <Icon type="material-community" name="emoticon-happy" size={30} color="#333" />
-        <Text style={styles.cardTitle}>Basado en tu Semana:</Text>
-        <Text style={styles.cardBody}>
-          Te recomendamos hacer los siguientes ejercicios:
-        </Text>
-        
-        <TouchableOpacity style={styles.startButton}>
-          <Icon type="material-community" name="star-circle" color="#8b80f9" size={24} />
-          <Text style={styles.startButtonText}>Comenzar</Text>
-        </TouchableOpacity>
-      </View>
-      
+      <AiGeminiHome></AiGeminiHome>
+
       <View style={styles.floatingActionContainer}>
         {/* Label Motivador a la izquierda */}
         <View style={styles.motivationBubble}>
@@ -55,8 +43,6 @@ export function HomeScreen() {
           onPress={gotoAlert}
         />
       </View>
-
     </SafeAreaView>
-    
   );
 }

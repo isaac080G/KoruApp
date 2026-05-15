@@ -1,0 +1,110 @@
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
+  header: {
+    paddingTop: 60,
+    paddingBottom: 30,
+    alignItems: "center",
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "white",
+    marginTop: 10,
+  },
+  badgeContainer: {
+    flexDirection: "row",
+    marginTop: 15,
+  },
+  badge: {
+    backgroundColor: "rgba(255,255,255,0.3)",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    marginHorizontal: 5,
+  },
+  badgeText: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+  content: {
+    padding: 25,
+    paddingBottom: 100, // Espacio para el botón flotante
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  benefitsText: {
+    fontSize: 15,
+    color: "#666",
+    lineHeight: 22,
+    fontStyle: "italic",
+    marginBottom: 25,
+  },
+  stepCard: {
+    flexDirection: "row",
+    backgroundColor: "#F8F9FA",
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 15,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#F0F0F0",
+  },
+  stepNumber: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 15,
+  },
+  stepNumberText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 14,
+  },
+  stepText: {
+    flex: 1,
+    fontSize: 15,
+    color: "#444",
+    lineHeight: 22,
+  },
+  startButton: {
+    position: "absolute",
+    bottom: 30,
+    left: 25,
+    right: 25,
+    backgroundColor: "#F5A623", // Color naranja como en la imagen
+    paddingVertical: 18,
+    borderRadius: 30,
+    alignItems: "center",
+    elevation: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+  },
+  startButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+    letterSpacing: 1,
+  },
+});

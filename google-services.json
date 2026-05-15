@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "79285172899",
+    "project_id": "koruapp-cfcd4",
+    "storage_bucket": "koruapp-cfcd4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79285172899:android:a5f7f81da9ac8f191c5d16",
+        "android_client_info": {
+          "package_name": "com.koru.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79285172899-4bql150cu902j5qoh4ohrim0deug2rv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIxzQVOUoNj4TFcDOEk_qGFFufVC5PH-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79285172899-4bql150cu902j5qoh4ohrim0deug2rv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

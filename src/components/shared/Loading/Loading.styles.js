@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
-    color: "#00a680",
+    color: "#bdfff0",
     textTransform: "uppercase",
   },
 });

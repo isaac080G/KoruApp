@@ -1,50 +1,46 @@
-import { View, Text } from 'react-native'
-import { Icon } from '@rneui/themed';
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView } from 'react-native';
-import {styles} from "./ActivitiesScreen.styles"
-import {useNavigation} from "@react-navigation/native"
-import {screen} from "../../utils/Screenname"
+import { Icon } from "@rneui/themed";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { AIActivities } from "../../components/AI/AI Activities";
+import { screen } from "../../utils/Screenname";
+import { styles } from "./ActivitiesScreen.styles";
+
+import { ScrollView } from "react-native";
+import { ActivitiesList } from "../../components/activitiesList/ActivitiesList";
+
+import { useCallback, useState } from "react";
 
 export function ActivitiesScreen() {
-    const navigation = useNavigation()
-  const activities = [
-    { id: 1, title: 'Especialmente para ti hoy', desc: 'loremnipsusiddvgvwiuegvyugv ygauydvgaivgyyadgvssdvasd dvasdvdsvsasdvv', color: '#a3b18a', icon: 'tailwind' },
-    { id: 2, title: 'Especialmente para ti hoy', desc: 'loremnipsusiddvgvwiuegvyugv ygauydvgaivgyyadgvssdvasd dvasdvdsvsasdvv', color: '#a2d2ff', icon: 'tailwind' },
-    { id: 3, title: 'Especialmente para ti hoy', desc: 'loremnipsusiddvgvwiuegvyugv ygauydvgaivgyyadgvssdvasd dvasdvdsvsasdvv', color: '#ffafcc', icon: 'tailwind' },
-  ];
-  const gotoAlert=()=>{
-    navigation.navigate(screen.Alert.tab)
-  }
+  const navigation = useNavigation();
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const gotoAlert = () => {
+    navigation.navigate(screen.Alert.tab, {
+      screen: screen.Alert.Alert,
+    });
+  };
+  useFocusEffect(
+    useCallback(() => {
+      setRefreshKey((prev) => prev + 1);
+    }, []),
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.mainTitle}>Actividades</Text>
-      
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {activities.map((item) => (
-          <View key={item.id} style={[styles.card, { backgroundColor: item.color }]}>
-            <View style={styles.iconBox}>
-              <Text style={styles.iconText}>{item.icon}</Text>
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.cardTitle}>{item.title}</Text>
-              <Text style={styles.cardDesc}>{item.desc}</Text>
-            </View>
-          </View>
-        ))}
+      <ScrollView>
+        <AIActivities refreshKey={refreshKey}></AIActivities>
+        <ActivitiesList></ActivitiesList>
       </ScrollView>
-      <View style={styles.fabContainer}>
-        <Icon
-          reverse
-          type="material-community"
-          name="alarm-light"
-          color="#FFA318"
-          size={35}
-          containerStyle={styles.alertBtn}
-          onPress={gotoAlert}
-        />
-      </View>
+      <Icon
+        reverse
+        type="material-community"
+        name="alarm-light"
+        color="#FFA318"
+        size={35}
+        containerStyle={styles.alertBtn}
+        onPress={gotoAlert}
+      />
     </SafeAreaView>
   );
 }
