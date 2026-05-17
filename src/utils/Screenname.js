@@ -34,6 +34,10 @@ const ReportsStack = {
   DailyReport: "DailyReport",
   ReportAIScreen: "ReportAIScreen",
 };
+const KoruChatStack = {
+  tab: "KoruChatTab",
+  KoruChat: "KoruChat",
+};
 
 export const screen = {
   Home: HomeStack,
@@ -43,4 +47,5 @@ export const screen = {
   Alert: AlertStack,
   Profile: profileStack,
   Reports: ReportsStack,
+  KoruChat: KoruChatStack,
 };

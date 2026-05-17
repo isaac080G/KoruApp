@@ -1,25 +1,41 @@
-import { View, Text, ActivityIndicator } from 'react-native'
-import { useState,useEffect } from 'react'
-import {getAuth,onAuthStateChanged} from "firebase/auth"
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { useCallback, useState } from "react";
+import { LoadingModals } from "../../components/shared/LoadingModals/LoadingModals";
+import { screen } from "../../utils";
+import { auth, db } from "../../utils/Firebase";
+import { UserGestScreen } from "./UserGestScreen";
+import { UserLoggedScreen } from "./UserLoggedScreen";
 
-
-
-import {UserLoggedScreen} from "./UserLoggedScreen"
-import {UserGestScreen} from "./UserGestScreen"
-import { LoadingModals } from '../../components/shared/LoadingModals/LoadingModals'
 
 
 export function ProfileScreen() {
-  const [hasLogged, sethasLogged] = useState(null)  
+  const [hasLogged, sethasLogged] = useState(null);
+  const navigation = useNavigation();
 
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user)=>{
-      sethasLogged(user ? true : false)
-    })
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const unsub = onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const userDocRef = doc(db, "usuarios", user.uid);
+          const userDoc = await getDoc(userDocRef);
 
-  if (hasLogged===null) {
+          if (!userDoc.exists()) {
+            navigation.navigate(screen.Profile.Name);
+          } else {
+            sethasLogged(true);
+          }
+        } else {
+          sethasLogged(false);
+        }
+      });
+
+      return () => unsub();
+    }, []),
+  );
+
+  if (hasLogged === null) {
     return <LoadingModals show={true} text="Cargando..." />;
   }
 

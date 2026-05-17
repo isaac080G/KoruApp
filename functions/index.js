@@ -53,6 +53,7 @@ Tu tarea es:
 1. Analizar la tendencia emocional a lo largo de este periodo.
 2. Predecir la probabilidad (0% a 100%) de que el usuario sufra un pico de ansiedad en las próximas 24 horas.
 3. Determinar el nivel de riesgo actual (Bajo, Medio, Alto).
+4. si el reporte no contiene registros del usuario, recomienda al usuario que registre su estado emocional para obtener predicciones personalizadas.
 
 Responde exclusivamente en este formato JSON sin markdown ni backticks:
 {

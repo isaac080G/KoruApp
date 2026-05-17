@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { ActivitiesScreen } from "../screens/Activities/";
-
+import { KoruChatScreen } from "../screens/KoruChatScreen";
 import { screen } from "../utils";
 
 const Stack = createNativeStackNavigator();
@@ -14,8 +13,8 @@ export function KoruChatStack() {
       }}
     >
       <Stack.Screen
-        name={screen.Activities.activities}
-        component={ActivitiesScreen}
+        name={screen.KoruChat.KoruChat}
+        component={KoruChatScreen}
       ></Stack.Screen>
     </Stack.Navigator>
   );

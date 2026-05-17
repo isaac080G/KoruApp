@@ -1,28 +1,3 @@
-//import { NavigationContainer } from "@react-navigation/native";
-//import { useEffect } from "react";
-//import "react-native-get-random-values";
-//import Toast from "react-native-toast-message";
-//import { AppNavigation } from "./src/navigation/Appnavigation/AppNavigation";
-//import { initFirebase, setupFirebaseServices } from "./src/utils";
-//
-//import { LogBox } from "react-native";
-//LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
-//initFirebase();
-////setupFirebaseServices();
-//export default function App() {
-//  useEffect(() => {
-//    // Ejecutar la configuración de servicios al arrancar
-//    setupFirebaseServices();
-//  }, []);
-//  return (
-//    <>
-//      <NavigationContainer>
-//        <AppNavigation />
-//      </NavigationContainer>
-//      <Toast />
-//    </>
-//  );
-//}
 import { NavigationContainer } from "@react-navigation/native";
 import "react-native-get-random-values";
 import Toast from "react-native-toast-message";

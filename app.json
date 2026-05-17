@@ -18,9 +18,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "permissions": [
-        "android.permission.CALL_PHONE"
-      ],
+      "permissions": ["android.permission.CALL_PHONE"],
       "package": "com.koru.app",
       "googleServicesFile": "./google-services.json"
     },
@@ -32,6 +30,13 @@
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Koru necesita el micrófono para escucharte.",
+          "speechRecognitionPermission": "Koru necesita reconocimiento de voz."
         }
       ],
       "@react-native-community/datetimepicker",

@@ -71,6 +71,7 @@ Actúa como un Sistema de Análisis Psicológico de Alta Precisión para la apli
    - **Alta:** Crisis de ansiedad reportada O cualquier señal de la lista de detonantes.
 3. **Criterio de Crisis (crisis_detected):** TRUE solo si hay señales de autolesión, ideación suicida, abuso, peligro inminente o desesperanza terminal.
 4. **Nivel de Confianza:** Calcula qué tan seguro estás de tu análisis del 0 al 100%. Un 100% implica que las notas son claras y coherentes con los datos numéricos.
+5.recuerda que el detectar alguna palabra detonante es suficiente para marcar crisis_detected como TRUE, sin importar los otros datos.
 
 ### ESPECIFICACIONES DE SALIDA (JSON ÚNICAMENTE):
 Responde estrictamente con un objeto JSON. No incluyas texto explicativo, ni bloques de código markdown.
@@ -87,6 +88,86 @@ Responde estrictamente con un objeto JSON. No incluyas texto explicativo, ni blo
 - "Ya no quiero estar aquí", "dormir y no despertar", "hacerme daño", "mi familia estaría mejor sin mí".
 - Referencias a abuso físico o violencia actual.
 - Desconexión total de la realidad o planes concretos de despedida.
+aqui algunos ejemplos: DEFINICIÓN DE DETONANTES TRADICIONALES:
+
+"Ya no quiero estar aquí"
+"dormir y no despertar"
+"hacerme daño"
+"mi familia estaría mejor sin mí"
+Referencias a abuso físico o violencia actual
+Desconexión total de la realidad o planes concretos de despedida
+CATEGORÍA 1: IDEACIÓN SUICIDA PASIVA
+"Ojalá mañana no despierte"
+"Quiero dormir y ya no despertar"
+"Ya no quiero seguir despertando"
+"Quiero desaparecer"
+"Ojalá pudiera borrarme"
+"Ya no tengo fuerzas para mañana"
+"No le encuentro sentido a seguir"
+"Estaría mejor si me esfumara"
+"Quiero que todo se detenga"
+"Ya no quiero existir"
+CATEGORÍA 2: SENTIMIENTOS DE CARGA Y CULPA
+"Solo causo problemas"
+"Soy una carga para todos"
+"Mi familia va a descansar cuando ya no esté"
+"Todos estarían más felices sin mí"
+"Arruino la vida de los que me rodean"
+"Nadie me extrañaría si me voy"
+"Estarían mejor sin mi existencia"
+"Estarían mejor si yo nunca hubiera nacido"
+"Solo sirvo para estorbar"
+CATEGORÍA 3: PLANES CONCRETOS Y CONDUCTAS DE DESPEDIDA
+"Ya dejé todo listo"
+"Ya acomodé mis cosas"
+"Este es mi último mensaje"
+"Por si ya no nos volvemos a ver"
+"Gracias por todo lo que hiciste por mí, adiós"
+"Ya tomé una decisión"
+"Ya sé lo que tengo que hacer"
+"Les dejé una carta"
+"Escribí algo para cuando no esté"
+"Quiero regalar mis cosas más preciadas"
+"Es hora de decir adiós"
+"Hasta aquí llegué"
+CATEGORÍA 4: AUTOLESIONES Y DAÑO FÍSICO
+"Quiero cortarme"
+"Necesito sangrar para calmarme"
+"Me quiero castigar"
+"Quiero golpearme la cabeza"
+"Me estoy haciendo daño"
+"El dolor físico borra el dolor mental"
+"Ya no controlo las ganas de lastimarme"
+"Me volví a cortar"
+"Quiero quemarme"
+CATEGORÍA 5: ABUSO FÍSICO Y VIOLENCIA ACTUAL / EMERGENCIAS
+"Me están pegando"
+"Me encerraron y no puedo salir"
+"Tengo miedo de que me maten hoy"
+"Me violaron"
+"Abusaron de mí"
+"Mi pareja se puso violenta y tengo miedo"
+"No estoy a salvo en mi propia casa"
+"Me están lastimando justo ahora"
+"Siento que mi vida corre peligro"
+CATEGORÍA 6: DESCONEXIÓN DE LA REALIDAD Y DESESPERANZA ABSOLUTA
+"Las voces me dicen que lo haga"
+"Nada de esto es real, me quiero salir de este mundo"
+"Estoy atrapado en un bucle y la única salida es acabar con todo"
+"El futuro está completamente oscuro, no hay salida"
+"Ya lo intenté todo y nada funciona, es el fin"
+"Ya no hay esperanza para mí"
+"Esto nunca va a mejorar"
+VARIACIONES COLOQUIALES Y ERRORES COMUNES (Para evitar falsos negativos por ortografía):
+"ya no kiero estar aki"
+"kiero morir"
+"kiero desaparecer"
+"me kiero cortar"
+"ya no kiero despertar"
+"ojala me muera"
+"quiero matarme"
+"me voy a suicidar"
+"me voy a matar"
 `;
 
     const result = await model.generateContent(prompt);

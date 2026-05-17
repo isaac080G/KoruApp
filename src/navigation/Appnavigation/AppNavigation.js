@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { screen } from "../../utils";
 import { ActivitiesStack } from "../ActivitiesStack";
 import { AlertStack } from "../AlertStack";
@@ -16,6 +16,8 @@ import { ReportStack } from "../ReportStack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useAuth } from "../../components/auth/useAuth";
 import { Loading } from "../../components/shared";
+
+import { KoruChatStack } from "../KoruChatStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +40,30 @@ export function AppNavigation() {
         headerShown: false,
         tabBarActiveTintColor: "#96d2fe",
         tabBarInactiveTintColor: "#a6a6a6",
-        tabBarIcon: ({ color, size }) => screenOptions(route, color, size),
+        tabBarIcon: ({ color, size }) => {
+          if (route.name === screen.KoruChat.tab) {
+            return (
+              <View
+                style={{
+                  top: -13,
+                }}
+              >
+                <Image
+                  source={require("../../../assets/images/koruApp for navigation.png")}
+                  style={{
+                    width: 45,
+                    height: 45,
+                    borderRadius: 22.5,
+                    backgroundColor: "#fff",
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
+            );
+          }
+
+          return screenOptions(route, color, size);
+        },
 
         tabBarStyle: styles.tabBar,
 
@@ -70,11 +95,15 @@ export function AppNavigation() {
         options={{ title: "Activities" }}
       />
       <Tab.Screen
+        name={screen.KoruChat.tab}
+        component={KoruChatStack}
+        options={{ title: "Koru Chat" }}
+      />
+      <Tab.Screen
         name={screen.Diary.tab}
         component={DiaryStack}
         options={{ title: "My diary" }}
       />
-
       <Tab.Screen
         name={screen.Notifications.tab}
         component={NotificationStack}
@@ -127,6 +156,9 @@ function screenOptions(route, color, size) {
   }
   if (route.name === screen.Notifications.tab) {
     iconName = "bell-outline";
+  }
+  if (route.name === screen.KoruChat.tab) {
+    iconName = "message-outline";
   }
   return (
     <Icon type="material-community" name={iconName} color={color} size={size} />
