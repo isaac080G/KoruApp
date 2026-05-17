@@ -1,4 +1,8 @@
-.agents/
-.claude/
+# Ignorar carpetas conflictivas de agentes y entornos
+.*
+!.expo/
+!.gitignore
+!.easignore
+
+# Carpetas pesadas locales
 node_modules/
-.expo/
