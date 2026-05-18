@@ -33,6 +33,7 @@ const ReportsStack = {
   tab: "ReportsTab",
   DailyReport: "DailyReport",
   ReportAIScreen: "ReportAIScreen",
+  completeReportAIScreen: "CompleteReportAIScreen",
 };
 const KoruChatStack = {
   tab: "KoruChatTab",

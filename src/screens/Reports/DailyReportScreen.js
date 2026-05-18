@@ -12,7 +12,7 @@ import CircularProgress from "react-native-circular-progress-indicator";
 import { styles } from "./DailyReport.styles";
 
 import { useNavigation } from "@react-navigation/native";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useFormik } from "formik";
 import Toast from "react-native-toast-message";
 import { auth, db } from "../../utils/Firebase";
@@ -36,7 +36,7 @@ export function DailyReportScreen({ route }) {
         const reportRef = collection(db, "usuarios", DocID, "DailyReports");
 
         const data = {
-          createdAt: new Date(),
+          createdAt: serverTimestamp(),
           userID: DocID,
           anxietyLevel: anxietyLevel,
           worryLevel: worryLevel,
@@ -56,13 +56,12 @@ export function DailyReportScreen({ route }) {
         navigation.navigate(screen.Reports.ReportAIScreen, {
           data: {
             ...data,
-            createdAt: data.createdAt?.toDate
-              ? data.createdAt.toDate().toISOString()
-              : new Date(data.createdAt).toISOString(),
+            createdAt: new Date().toISOString(), // ← fecha local solo para mostrar en pantalla
           },
         });
         Toast.show({
           text: "Dia Capturado con exito :)",
+          textStyle: { color: "#4ADE80", fontWeight: "bold" },
           position: "top",
           duration: 4000,
         });

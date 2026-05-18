@@ -37,7 +37,7 @@ exports.obtenerPrediccion = onRequest(
         .collection("usuarios")
         .doc(userId)
         .collection("DailyReports")
-        .orderBy("createdAt", "desc")
+        .orderBy("data.createdAt", "desc")
         .limit(20)
         .get();
 

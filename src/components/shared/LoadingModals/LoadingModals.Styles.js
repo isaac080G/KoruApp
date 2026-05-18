@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     height: 100,
     width: 200,
     backgroundColor: "#fff",
-    borderColor: "rgb(236, 159, 255)",
+    borderColor: "rgb(186, 253, 255)",
     borderWidth: 2,
     borderRadius: 10,
     justifyContent: "center",
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    color: "rgba(4, 255, 0, 1)",
+    color: "rgb(186, 253, 255)",
     textTransform: "uppercase",
     marginTop: 10,
   },

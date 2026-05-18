@@ -3,12 +3,15 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./AiGeminiHome.styles";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 import { Icon } from "@rneui/themed";
 import RNSpeedometer from "react-native-speedometer";
 import { Loading } from "../../components/shared/Loading";
 import { auth } from "../../utils/Firebase";
+import { screen } from "../../utils/Screenname";
 
 export function AiGeminiHome() {
+  const navigation = useNavigation();
   const PREDICTION_KEY = "koru-prediction";
   const [prediccion, setPrediccion] = useState("");
   const [loading, setloading] = useState(true);
@@ -63,6 +66,13 @@ export function AiGeminiHome() {
     ? parseInt(prediccion.probabilidad_ataque)
     : 0;
 
+  const gotoReport = () => {
+    navigation.navigate(screen.Reports.tab, {
+      screen: screen.Reports.completeReportAIScreen,
+      params: { data: prediccion },
+    });
+  };
+
   return (
     <>
       {loading && <Loading show={true} text={"cargando..."}></Loading>}
@@ -112,8 +122,11 @@ export function AiGeminiHome() {
               name="login"
               color="#8b80f9"
               size={20}
+              onPress={() => gotoReport()}
             />
-            <Text style={styles.startButtonText}>Todo el resumen</Text>
+            <Text onPress={() => gotoReport()} style={styles.startButtonText}>
+              Todo el resumen
+            </Text>
           </TouchableOpacity>
         </View>
       )}

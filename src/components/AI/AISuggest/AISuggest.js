@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 import { styles } from "./AISuggest.styles";
 
 import { Icon } from "@rneui/themed";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, limit, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db, model } from "../../../utils";
 
@@ -42,15 +42,19 @@ export function AISuggest({ refreshKey }) {
         }
         console.log("Cache expirado, actualizando...");
       }
+
       const q = query(
         collection(db, "usuarios", auth.currentUser.uid, "DailyReports"),
-        orderBy("createdAt", "desc"),
         limit(5),
       );
 
       const snapshot = await getDocs(q);
+      snapshot.forEach((doc) => {
+        console.log("Doc ID:", doc.id);
+        console.log("Doc data:", JSON.stringify(doc.data()));
+      });
       const summary = snapshot.docs.map((doc) => {
-        const data = doc.data();
+        const data = doc.data().data;
         const hours = parseFloat(data.sleepReport.hours) || 0;
         const min = parseFloat(data.sleepReport.min) || 0;
         const totalHours = hours + min / 60;
@@ -74,6 +78,7 @@ export function AISuggest({ refreshKey }) {
       };
 
       //process data//
+      console.log("UID:", auth.currentUser?.uid);
       console.log("aqui el summary", summary);
 
       setLoading(true);
@@ -96,6 +101,7 @@ export function AISuggest({ refreshKey }) {
     5. NO uses bloques de código, NO uses backticks, NO uses markdown.
     6. El primer carácter de tu respuesta debe ser { y el último }.
     7. explica un poco porque escogiste esas categorias
+    8.trata de decir algo que viste en las notas para personalizar el consejo que sienta que estas hablando con esa persona y no dando un consejo generico, si no hay notas no hay problema, solo da el consejo basado en los promedios de los indicadores.
     y recuerda !RESPONDE ÚNICAMENTE CON EL OBJETO JSON, SIN NADA MÁS.!
     
     {

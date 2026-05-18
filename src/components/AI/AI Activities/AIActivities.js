@@ -29,6 +29,11 @@ export function AIActivities({ refreshKey }) {
 
   async function verCache() {
     const cached = await AsyncStorage.getItem(GEMINI_CACHE_KEY);
+    if (!cached) {
+      console.log("Cache no listo, reintentando...");
+      setTimeout(verCache, 3000);
+      return;
+    }
     if (cached) {
       const parsed = JSON.parse(cached);
       console.log("=== CACHE ===");

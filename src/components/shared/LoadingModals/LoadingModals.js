@@ -10,7 +10,7 @@ export function LoadingModals(props) {
     <Overlay isVisible={show} overlayStyle={styles.overlay}>
       <View style={styles.View}>
         {text && <Text style={styles.text}>{text}</Text>}
-        <ActivityIndicator size="large" color="rgb(236, 159, 255)" />
+        <ActivityIndicator size="large" color="rgb(186, 253, 255)" />
       </View>
     </Overlay>
   );

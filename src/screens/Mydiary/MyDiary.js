@@ -18,18 +18,22 @@ export function MyDiary() {
       setLoading(true);
       const q = query(
         collection(db, "usuarios", auth.currentUser.uid, "DailyReports"),
-        orderBy("createdAt", "desc"),
+        orderBy("data.createdAt", "desc"),
       );
       const snapshot = await getDocs(q);
-      const data = snapshot.docs.map((snap) => ({
-        id: snap.id,
-        ...snap.data(),
-        createdAt: snap.data().createdAt?.toDate().toLocaleDateString("es-MX", {
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-        }),
-      }));
+
+      const data = snapshot.docs.map((snap) => {
+        const docData = snap.data().data;
+        return {
+          id: snap.id,
+          ...docData,
+          createdAt: docData.createdAt?.toDate().toLocaleDateString("es-MX", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+          }),
+        };
+      });
       setEntries(data);
     } catch (error) {
       console.error("Error cargando diario:", error);

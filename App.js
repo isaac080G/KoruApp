@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import "react-native-get-random-values";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import { AppNavigation } from "./src/navigation/Appnavigation/AppNavigation";
 
@@ -28,14 +29,14 @@ if (typeof AbortSignal.any === "undefined") {
   };
 }
 LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
-
+LogBox.ignoreLogs(['Value for type "material-community" is deprecated']);
 export default function App() {
   return (
-    <>
+    <SafeAreaProvider>
       <NavigationContainer>
         <AppNavigation />
       </NavigationContainer>
       <Toast />
-    </>
+    </SafeAreaProvider>
   );
 }
